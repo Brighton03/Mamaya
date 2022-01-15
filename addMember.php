@@ -6,7 +6,8 @@ $address = $_POST["address"];
 $country = $_POST["country"];
 $phone = $_POST["phone"];
 $email = $_POST["email"];
-$password = $_POST["password"];
+// Create a password hash using the default bcrypt algorithm
+$password = password_hash ($_POST["password"], PASSWORD_DEFAULT);
 
 include_once("mysql_conn.php");
 
@@ -32,7 +33,7 @@ if ($stmt->execute()){ //SQL statement executed successfully
 	$_SESSION["ShopperName"] = $name;
 }
 else{ // Error message
-	$Message = "<h3 style='color:red'> Error in inserting record </h3>";
+	$Message = "<h3 style='color:red'> Error inserting record </h3>";
 }
 
 //Release the resource allocated for prepared statement

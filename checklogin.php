@@ -21,8 +21,10 @@ if ($stmt -> execute()){
 	if ($result->num_rows != 0){
 		//While loop in the case that there are multiple results due to duplicate email
 		while($row = $result->fetch_array()){
-			//Checking of password
-			if ($row["Password"] == $pwd){
+			// Get the hashed password from database
+			$hashed_pwd = $row["Password"];
+			// Verifies that a password matches a hash //Checking of password
+			if (password_verify($pwd, $hashed_pwd) == true){
 				$_SESSION["ShopperName"] = $row["Name"];
 				$_SESSION["ShopperID"] = $row["ShopperID"];
 				
